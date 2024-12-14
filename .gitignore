@@ -31,3 +31,8 @@ google-services.json
 
 # Android Profiling
 *.hprof
+
+#API Keys
+secrets.properties
+
+.DS_Store
