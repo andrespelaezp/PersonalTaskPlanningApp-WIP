@@ -30,7 +30,6 @@ jobs:
 
       - name: Get local.properties from secrets
         run: | 
-          echo "${{secrets.SECRETS_PROPERTIES }}" > ${{ github.workspace }}/secrets.properties
           echo "JIRA_ORG_ID=${{ secrets.JIRA_ORG_ID }}" >> ${{ github.workspace }}/secrets.properties
           echo "JIRA_API_KEY=${{ secrets.JIRA_API_KEY }}" >> ${{ github.workspace }}/secrets.properties
 
@@ -49,6 +48,9 @@ jobs:
 
       - name: Run Lint Checks
         run: ./gradlew lint
+
+      - name: Run App Unit Tests
+        run: ./gradlew [:app:testDebugUnitTest, --tests, com.andrespelaezp.personaltaskplanningapp.*]
 
       - name: Run Unit Tests
         run: ./gradlew test
