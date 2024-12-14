@@ -14,16 +14,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Create `secrets.properties` file
-        run: |
-          echo ${{ github.workspace }}
-          touch ${{ github.workspace }}/secrets.properties
-        #  echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> ./secrets.properties
-        # echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> ./secrets.properties
-
-      - name: Get local.properties from secrets
-        run: echo "${{secrets.SECRETS_PROPERTIES }}" > ${{ github.workspace }}/secrets.properties
-
       - name: Checkout code
         uses: actions/checkout@v3
 
@@ -32,6 +22,17 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17' # Adjust based on your project's Java version
+
+      - name: Create `secrets.properties` file
+        run: |
+          echo ${{ github.workspace }}
+          touch ${{ github.workspace }}/secrets.properties
+
+      - name: Get local.properties from secrets
+        run: | 
+          echo "${{secrets.SECRETS_PROPERTIES }}" > ${{ github.workspace }}/secrets.properties
+          echo "JIRA_ORG_ID=${{ secrets.JIRA_ORG_ID }}" >> ${{ github.workspace }}/secrets.properties
+          echo "JIRA_API_KEY=${{ secrets.JIRA_API_KEY }}" >> ${{ github.workspace }}/secrets.properties
 
       - name: Cache Gradle wrapper
         uses: actions/cache@v3
