@@ -16,12 +16,13 @@ jobs:
     steps:
       - name: Create `secrets.properties` file
         run: |
-          touch secrets.properties
+          echo ${{ github.workspace }}
+          touch ${{ github.workspace }}/secrets.properties
         #  echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> ./secrets.properties
         # echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> ./secrets.properties
 
       - name: Get local.properties from secrets
-        run: echo "${{secrets.SECRETS_PROPERTIES }}" > $GITHUB_WORKSPACE/secrets.properties
+        run: echo "${{secrets.SECRETS_PROPERTIES }}" > ${{ github.workspace }}/secrets.properties
 
       - name: Checkout code
         uses: actions/checkout@v3
