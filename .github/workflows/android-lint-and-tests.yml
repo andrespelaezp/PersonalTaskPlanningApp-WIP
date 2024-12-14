@@ -1,0 +1,58 @@
+name: Android Lint and Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  lint-and-test:
+    name: Run Lint and Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17' # Adjust based on your project's Java version
+
+      - name: Cache Gradle wrapper
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/wrapper
+            ~/.gradle/caches
+          key: gradle-wrapper-${{ runner.os }}-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}
+          restore-keys: |
+            gradle-wrapper-${{ runner.os }}
+
+      - name: Download Dependencies
+        run: ./gradlew dependencies
+
+      - name: Run Lint Checks
+        run: ./gradlew lint
+
+      - name: Run Unit Tests
+        run: ./gradlew test
+
+      - name: Upload Test Results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: build/test-results
+
+      - name: Upload Lint Results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: lint-results
+          path: app/build/reports/lint-results.html
+
