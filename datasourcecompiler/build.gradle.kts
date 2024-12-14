@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "com.andrespelaezp.datasourcecompiler"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.andrespelaezp.datasourcecompiler"
