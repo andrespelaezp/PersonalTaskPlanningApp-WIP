@@ -8,9 +8,8 @@ import com.andrespelaezp.datasourcecompiler.api.google.GoogleTasksService
 import com.andrespelaezp.datasourcecompiler.api.jira.JiraService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
 
-class TaskRepository @Inject constructor(
+class TaskRepository(
     private val jiraService: JiraService,
     private val googleTasksService: GoogleTasksService
 ) {

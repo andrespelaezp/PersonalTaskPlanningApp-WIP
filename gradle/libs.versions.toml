@@ -16,6 +16,7 @@ playServicesWearable = "19.0.0"
 composeBom = "2024.12.01"
 composeMaterial = "1.4.0"
 composeFoundation = "1.4.0"
+composeNavigation = "1.2.0"
 secretsGradlePlugin = "2.0.1"
 wearToolingPreview = "1.0.0"
 activityCompose = "1.9.3"
@@ -29,8 +30,8 @@ runtimeAndroid = "1.6.6"
 uiGraphicsAndroid = "1.6.6"
 material3Android = "1.3.1"
 uiToolingPreviewAndroid = "1.7.5"
-hilt = "2.51.1"
 lifecycleViewmodelAndroid = "2.8.7"
+koin-bom = "4.1.0-Beta4"
 
 
 [libraries]
@@ -68,8 +69,12 @@ androidx-runtime-android = { group = "androidx.compose.runtime", name = "runtime
 androidx-ui-graphics-android = { group = "androidx.compose.ui", name = "ui-graphics-android", version.ref = "uiGraphicsAndroid" }
 androidx-material3-android = { group = "androidx.compose.material3", name = "material3-android", version.ref = "material3Android" }
 androidx-ui-tooling-preview-android = { group = "androidx.compose.ui", name = "ui-tooling-preview-android", version.ref = "uiToolingPreviewAndroid" }
-hilt = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
-hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt" }
+koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koin-bom" }
+koin-core = { module = "io.insert-koin:koin-core" }
+koin-vm = { group = "io.insert-koin", name = "koin-compose-viewmodel", version.ref = "koin-bom" }
+koin-compose = { group = "io.insert-koin", name = "koin-compose", version.ref = "koin-bom" }
+#koin-test = { group = "io.insert-koin", name = "koin-test", version.ref = "koin" }
+#koin-junit = { group = "io.insert-koin", name = "koin-test-junit", version.ref = "koin" }
 androidx-lifecycle-viewmodel-android = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-android", version.ref = "lifecycleViewmodelAndroid" }
 
 [plugins]
