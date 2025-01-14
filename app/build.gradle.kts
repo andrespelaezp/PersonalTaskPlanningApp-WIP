@@ -1,11 +1,10 @@
-import java.util.Properties
-
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.compose.compiler) apply true
 
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
+    id("kotlin-kapt")
 }
 
 android {
@@ -20,14 +19,6 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
-//        // Get the API keys from local.properties
-//        val properties = Properties()
-//        properties.load(project.rootProject.file("local.properties").inputStream())
-//
-//        // Set API keys in BuildConfig
-//        buildConfigField("String", "ORG_ID_JIRA", properties.getProperty("ORG_ID_JIRA"))
-//        buildConfigField("String", "API_KEY_JIRA", properties.getProperty("API_KEY_JIRA"))
     }
 
     buildTypes {
@@ -76,6 +67,10 @@ android {
         ignoreList.add("keyToIgnore") // Ignore the key "keyToIgnore"
         ignoreList.add("sdk.*")       // Ignore all keys matching the regexp "sdk.*"
     }
+    kapt {
+        correctErrorTypes = true
+    }
+
 }
 
 dependencies {
@@ -98,11 +93,21 @@ dependencies {
     implementation(libs.androidx.ui.graphics.android)
     implementation(libs.androidx.material3.android)
     implementation(libs.androidx.ui.tooling.preview.android)
+    implementation(project(":datasourcecompiler"))
+
+    implementation(libs.androidx.lifecycle.viewmodel.android)
+
+    //DI
+//    implementation(libs.koin)
+//    implementation(libs.koin.viewmodel)
+//    implementation(libs.koin.compose)
+    implementation(project.dependencies.platform(libs.koin.bom))
+    implementation(libs.koin.core)
+    implementation(libs.koin.vm)
+    implementation(libs.koin.compose)
 
     // Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
-//    implementation(":datasourcecompiler")
 }

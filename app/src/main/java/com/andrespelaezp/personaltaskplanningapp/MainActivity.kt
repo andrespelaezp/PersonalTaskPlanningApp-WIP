@@ -11,9 +11,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.andrespelaezp.personaltaskplanningapp.di.viewmodelModule
+import com.andrespelaezp.personaltaskplanningapp.ui.screens.dashboard.DashboardScreen
 import com.andrespelaezp.personaltaskplanningapp.ui.theme.TaskPlanningSourceLibraryTheme
+import org.koin.compose.KoinApplication
 
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -24,6 +28,11 @@ class MainActivity : ComponentActivity() {
                         name = "Android",
                         modifier = Modifier.padding(innerPadding)
                     )
+                    KoinApplication(application = {
+                        modules(viewmodelModule)
+                    }) {
+                        DashboardScreen()
+                    }
                 }
             }
         }

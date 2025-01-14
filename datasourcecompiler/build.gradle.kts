@@ -1,5 +1,5 @@
 plugins {
-    alias(libs.plugins.android.application)
+    id("com.android.library")
     alias(libs.plugins.kotlin.android)
     id("kotlin-kapt")
 }
@@ -9,11 +9,11 @@ android {
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.andrespelaezp.datasourcecompiler"
+//        applicationId = "com.andrespelaezp.datasourcecompiler"
         minSdk = 24
         targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+//        versionCode = 1
+//        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -46,15 +46,21 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.retrofit.gson)
 
-    //DI
-    implementation(libs.hilt)
     implementation(libs.androidx.lifecycle.viewmodel.android)
-    kapt(libs.hilt.compiler)
+
+    //DI
+//    implementation(libs.koin)
+//    implementation(libs.koin.viewmodel)
+//    implementation(libs.koin.compose)
+    implementation(project.dependencies.platform(libs.koin.bom))
+    implementation(libs.koin.core)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     testImplementation(libs.junit)
+//    testImplementation(libs.koin.test)
+//    testImplementation(libs.koin.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 }
