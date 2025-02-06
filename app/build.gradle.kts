@@ -93,14 +93,12 @@ dependencies {
     implementation(libs.androidx.ui.graphics.android)
     implementation(libs.androidx.material3.android)
     implementation(libs.androidx.ui.tooling.preview.android)
+    implementation(libs.okhttp)
     implementation(project(":datasourcecompiler"))
 
     implementation(libs.androidx.lifecycle.viewmodel.android)
 
     //DI
-//    implementation(libs.koin)
-//    implementation(libs.koin.viewmodel)
-//    implementation(libs.koin.compose)
     implementation(project.dependencies.platform(libs.koin.bom))
     implementation(libs.koin.core)
     implementation(libs.koin.vm)
