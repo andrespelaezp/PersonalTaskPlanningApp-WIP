@@ -11,7 +11,6 @@ import org.koin.compose.viewmodel.koinViewModel
 fun DashboardScreen(
     viewModel: DashboardViewModel = koinViewModel<DashboardViewModel>()
 ) {
-
     val uiState = viewModel.state.collectAsStateWithLifecycle()
 
     DashboardScreenContent(
@@ -23,8 +22,7 @@ fun DashboardScreen(
 fun DashboardScreenContent(
     uiState: DashboardViewState
 ) {
-
-
+    
 }
 
 @Preview(showBackground = true)
