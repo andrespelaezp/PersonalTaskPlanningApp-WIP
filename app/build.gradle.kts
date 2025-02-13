@@ -105,6 +105,8 @@ dependencies {
     implementation(libs.koin.core)
     implementation(libs.koin.vm)
     implementation(libs.koin.compose)
+    implementation(libs.androidx.ui.test.android)
+    implementation(libs.androidx.compose.material)
 
     // Testing
     testImplementation(libs.junit)
