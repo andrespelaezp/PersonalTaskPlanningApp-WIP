@@ -13,7 +13,7 @@ android {
 
     defaultConfig {
         applicationId = "com.andrespelaezp.personaltaskplanningapp"
-        minSdk = 24
+        minSdk = 25
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
@@ -82,6 +82,8 @@ dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.compose.foundation)
 
     // Coroutines
     implementation(libs.coroutines)

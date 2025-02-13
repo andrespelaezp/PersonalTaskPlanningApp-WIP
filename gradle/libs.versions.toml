@@ -33,6 +33,7 @@ material3Android = "1.3.1"
 uiToolingPreviewAndroid = "1.7.5"
 lifecycleViewmodelAndroid = "2.8.7"
 koin-bom = "4.1.0-Beta4"
+navigationCompose = "2.8.6"
 
 
 [libraries]
@@ -78,6 +79,7 @@ koin-compose = { group = "io.insert-koin", name = "koin-compose", version.ref = 
 #koin-test = { group = "io.insert-koin", name = "koin-test", version.ref = "koin" }
 #koin-junit = { group = "io.insert-koin", name = "koin-test-junit", version.ref = "koin" }
 androidx-lifecycle-viewmodel-android = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-android", version.ref = "lifecycleViewmodelAndroid" }
+androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
