@@ -1,9 +1,13 @@
 package com.andrespelaezp.personaltaskplanningapp.ui.screens.main
 
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -11,6 +15,7 @@ import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.NavigationDrawerItem
@@ -40,19 +45,39 @@ fun AppMainScreen() {
         drawerState = drawerState,
         drawerContent = {
             ModalDrawerSheet {
-                Text("Drawer title", modifier = Modifier.padding(16.dp))
+                Spacer(Modifier.height(12.dp))
+                Text("Drawer Title", modifier = Modifier.padding(16.dp), style = MaterialTheme.typography.titleLarge)
                 HorizontalDivider()
+
+                Text("Section 1", modifier = Modifier.padding(16.dp), style = MaterialTheme.typography.titleMedium)
                 NavigationDrawerItem(
-                    label = { Text(text = "Drawer Item 1") },
+                    label = { Text("Item 1") },
                     selected = false,
-                    onClick = { /*TODO*/ }
+                    onClick = { /* Handle click */ }
                 )
-                HorizontalDivider()
                 NavigationDrawerItem(
-                    label = { Text(text = "Drawer Item 2") },
+                    label = { Text("Item 2") },
                     selected = false,
-                    onClick = { /*TODO*/ }
+                    onClick = { /* Handle click */ }
                 )
+
+                HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
+
+                Text("Section 2", modifier = Modifier.padding(16.dp), style = MaterialTheme.typography.titleMedium)
+                NavigationDrawerItem(
+                    label = { Text("Settings") },
+                    selected = false,
+                    icon = { Icon(Icons.Outlined.Settings, contentDescription = null) },
+                    badge = { Text("20") }, // Placeholder
+                    onClick = { /* Handle click */ }
+                )
+                NavigationDrawerItem(
+                    label = { Text("Help and feedback") },
+                    selected = false,
+                    icon = { Icon(Icons.AutoMirrored.Outlined.ArrowBack, contentDescription = null) },
+                    onClick = { /* Handle click */ },
+                )
+                Spacer(Modifier.height(12.dp))
             }
         },
     ) {
