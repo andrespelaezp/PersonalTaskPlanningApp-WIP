@@ -6,6 +6,6 @@ import org.koin.dsl.module
 val repositoryModule = module {
 
     single<TaskRepository> {
-        TaskRepository(get(), get())
+        TaskRepository(get(), get(), get())
     }
 }
