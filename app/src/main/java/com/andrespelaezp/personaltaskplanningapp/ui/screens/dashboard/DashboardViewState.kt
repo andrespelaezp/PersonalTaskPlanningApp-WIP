@@ -1,6 +1,6 @@
 package com.andrespelaezp.personaltaskplanningapp.ui.screens.dashboard
 
-import com.andrespelaezp.datasourcecompiler.api.data.Task
+import com.andrespelaezp.datasourcecompiler.data.Task
 
 data class DashboardViewState(
     val tasks: List<Task> = emptyList(),

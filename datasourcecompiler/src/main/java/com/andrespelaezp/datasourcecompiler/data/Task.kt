@@ -1,4 +1,4 @@
-package com.andrespelaezp.datasourcecompiler.api.data
+package com.andrespelaezp.datasourcecompiler.data
 
 data class Task(
     val id: String,

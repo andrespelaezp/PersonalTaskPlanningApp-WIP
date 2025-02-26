@@ -9,12 +9,7 @@ android {
     compileSdk = 35
 
     defaultConfig {
-//        applicationId = "com.andrespelaezp.datasourcecompiler"
-        minSdk = 24
-        targetSdk = 34
-//        versionCode = 1
-//        versionName = "1.0"
-
+        minSdk = 26
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -38,7 +33,6 @@ android {
 
 dependencies {
 
-
     // Coroutines
     implementation(libs.coroutines)
 
@@ -50,9 +44,6 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.android)
 
     //DI
-//    implementation(libs.koin)
-//    implementation(libs.koin.viewmodel)
-//    implementation(libs.koin.compose)
     implementation(project.dependencies.platform(libs.koin.bom))
     implementation(libs.koin.core)
 

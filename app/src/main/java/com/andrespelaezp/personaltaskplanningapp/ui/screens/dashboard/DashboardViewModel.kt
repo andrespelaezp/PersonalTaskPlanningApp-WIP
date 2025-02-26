@@ -3,9 +3,9 @@ package com.andrespelaezp.personaltaskplanningapp.ui.screens.dashboard
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.andrespelaezp.datasourcecompiler.repository.TaskRepository
-import com.andrespelaezp.personaltaskplanningapp.keys.apiKey
-import com.andrespelaezp.personaltaskplanningapp.keys.googleKey
-import com.andrespelaezp.personaltaskplanningapp.keys.googleTaskId
+import com.andrespelaezp.datasourcecompiler.keys.apiKey
+import com.andrespelaezp.datasourcecompiler.keys.googleKey
+import com.andrespelaezp.datasourcecompiler.keys.googleTaskId
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch

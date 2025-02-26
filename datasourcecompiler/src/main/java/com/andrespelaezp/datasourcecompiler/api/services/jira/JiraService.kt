@@ -1,4 +1,4 @@
-package com.andrespelaezp.datasourcecompiler.api.jira
+package com.andrespelaezp.datasourcecompiler.api.services.jira
 
 import com.andrespelaezp.datasourcecompiler.api.data.jira.JiraTaskResponse
 import retrofit2.http.GET

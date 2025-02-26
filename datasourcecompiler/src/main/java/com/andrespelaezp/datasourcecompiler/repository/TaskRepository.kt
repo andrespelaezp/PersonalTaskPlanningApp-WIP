@@ -1,17 +1,20 @@
 package com.andrespelaezp.datasourcecompiler.repository
 
-import com.andrespelaezp.datasourcecompiler.api.data.SourceType
-import com.andrespelaezp.datasourcecompiler.api.data.Task
+import com.andrespelaezp.datasourcecompiler.data.SourceType
+import com.andrespelaezp.datasourcecompiler.data.Task
 import com.andrespelaezp.datasourcecompiler.api.data.google.GoogleTask
 import com.andrespelaezp.datasourcecompiler.api.data.jira.JiraTask
-import com.andrespelaezp.datasourcecompiler.api.google.GoogleTasksService
-import com.andrespelaezp.datasourcecompiler.api.jira.JiraService
+import com.andrespelaezp.datasourcecompiler.api.data.openproject.WorkPackagesListResponse
+import com.andrespelaezp.datasourcecompiler.api.services.google.GoogleTasksService
+import com.andrespelaezp.datasourcecompiler.api.services.jira.JiraService
+import com.andrespelaezp.datasourcecompiler.api.services.openproject.OpenProjectService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class TaskRepository(
     private val jiraService: JiraService,
-    private val googleTasksService: GoogleTasksService
+    private val googleTasksService: GoogleTasksService,
+    private val openProjectService: OpenProjectService
 ) {
 
     suspend fun fetchAllTasks(
@@ -19,10 +22,17 @@ class TaskRepository(
         googleAuthToken: String,
         googleTaskListId: String
     ): List<Task> = withContext(Dispatchers.IO) {
-        val jiraTasks = fetchJiraTasks(jiraAuthToken)
-        val googleTasks = fetchGoogleTasks(googleAuthToken, googleTaskListId)
+//        val jiraTasks = fetchJiraTasks(jiraAuthToken)
+//        val googleTasks = fetchGoogleTasks(googleAuthToken, googleTaskListId)
+        val openProjectTasks = fetchOpenProjectTasks()
 
-        return@withContext jiraTasks + googleTasks
+        return@withContext openProjectTasks
+//        jiraTasks + googleTasks +
+    }
+
+    private suspend fun fetchOpenProjectTasks(): List<Task> {
+        val response = openProjectService.getWorkPackagesByProject("zproject")
+        return mapOpenProjectTask(response)
     }
 
     private suspend fun fetchJiraTasks(authToken: String): List<Task> {
@@ -33,6 +43,19 @@ class TaskRepository(
     private suspend fun fetchGoogleTasks(authToken: String, taskListId: String): List<Task> {
         val response = googleTasksService.getTasks(taskListId, "Bearer $authToken")
         return mapGoogleTask(response.items?: emptyList())
+    }
+
+    private fun mapOpenProjectTask(openProjectTasks: WorkPackagesListResponse): List<Task> {
+        return openProjectTasks.embedded.workPackages.map { workPackage ->
+            Task(
+                id = "${workPackage.id}",
+                title = workPackage.subject,
+                summary = workPackage.description?.raw?: "",
+                sourceType = SourceType.OPEN_PROJECT,
+                status = workPackage.status?: "",
+                dueDate = workPackage.dueDate
+            )
+        }
     }
 
     private fun mapJiraTask(jiraTasks: List<JiraTask>): List<Task> {

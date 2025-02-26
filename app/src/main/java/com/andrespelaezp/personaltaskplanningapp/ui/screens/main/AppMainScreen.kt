@@ -1,5 +1,6 @@
 package com.andrespelaezp.personaltaskplanningapp.ui.screens.main
 
+import android.content.Context
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -36,7 +37,9 @@ import com.andrespelaezp.personaltaskplanningapp.ui.screens.tasks.TasksView
 import kotlinx.coroutines.CoroutineScope
 
 @Composable
-fun AppMainScreen() {
+fun AppMainScreen(
+    context: Context
+) {
     val navController = rememberNavController()
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
@@ -100,10 +103,10 @@ fun AppMainScreen() {
             // Screen content
             NavHost(navController,
                 //TODO: Leaving tasks as entrypoint for now, once the dashboard is implemented, it should be the entrypoint
-                startDestination = "tasks",
+                startDestination = "main",
                 modifier = Modifier.padding(contentPadding)
             ) {
-                composable("main") { DashboardScreen(navController = navController) }
+                composable("main") { DashboardScreen(context = context, navController = navController) }
                 composable("tasks") { TasksView(navController = navController) }
                 composable("detail/{task}") { backStackEntry ->
 //                    TaskDetailScreen(backStackEntry.arguments?.getString("task") ?: "Unknown")

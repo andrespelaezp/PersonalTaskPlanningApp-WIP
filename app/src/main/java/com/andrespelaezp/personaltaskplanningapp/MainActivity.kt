@@ -19,7 +19,7 @@ class MainActivity : ComponentActivity() {
                 KoinApplication(application = {
                     modules(viewmodelModule)
                 }) {
-                    AppMainScreen()
+                    AppMainScreen(this)
                 }
             }
         }

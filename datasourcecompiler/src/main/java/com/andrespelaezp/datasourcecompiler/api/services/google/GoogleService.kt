@@ -1,4 +1,4 @@
-package com.andrespelaezp.datasourcecompiler.api.google
+package com.andrespelaezp.datasourcecompiler.api.services.google
 
 import com.andrespelaezp.datasourcecompiler.api.data.google.GoogleTasksResponse
 import retrofit2.http.GET
