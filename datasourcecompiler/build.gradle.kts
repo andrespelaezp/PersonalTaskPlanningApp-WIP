@@ -2,6 +2,7 @@ plugins {
     id("com.android.library")
     alias(libs.plugins.kotlin.android)
     id("com.google.devtools.ksp")
+    id("androidx.room")
 }
 
 android {
@@ -29,9 +30,11 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-
     testOptions {
         unitTests.isIncludeAndroidResources = true
+    }
+    room {
+        schemaDirectory("$projectDir/schemas")
     }
 }
 

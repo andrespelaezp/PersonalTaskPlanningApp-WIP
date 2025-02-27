@@ -1,8 +1,7 @@
 plugins {
-    alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    // Existing plugins
     alias(libs.plugins.compose.compiler)
+    id("com.android.library")
 }
 
 android {
@@ -10,11 +9,7 @@ android {
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.andrespelaezp.personaltaskwear"
         minSdk = 30
-        targetSdk = 35
-        versionCode = 1
-        versionName = "1.0"
         vectorDrawables {
             useSupportLibrary = true
         }
