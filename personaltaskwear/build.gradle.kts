@@ -7,12 +7,12 @@ plugins {
 
 android {
     namespace = "com.andrespelaezp.personaltaskwear"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.andrespelaezp.personaltaskwear"
         minSdk = 30
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
         vectorDrawables {
