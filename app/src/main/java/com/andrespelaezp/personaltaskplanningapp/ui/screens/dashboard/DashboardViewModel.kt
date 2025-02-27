@@ -2,7 +2,7 @@ package com.andrespelaezp.personaltaskplanningapp.ui.screens.dashboard
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.andrespelaezp.datasourcecompiler.repository.TaskRepository
+import com.andrespelaezp.datasourcecompiler.data.repository.TaskRepository
 import com.andrespelaezp.datasourcecompiler.keys.apiKey
 import com.andrespelaezp.datasourcecompiler.keys.googleKey
 import com.andrespelaezp.datasourcecompiler.keys.googleTaskId

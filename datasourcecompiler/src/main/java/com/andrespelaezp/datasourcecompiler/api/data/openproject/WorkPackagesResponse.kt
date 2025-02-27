@@ -20,8 +20,8 @@ data class WorkPackage(
     val status: String?,
     val createdAt: String,
     val updatedAt: String,
-    val project: String?,
-    val dueDate: String?
+    val dueDate: String?,
+    val lockVersion: Int
 )
 
 data class Description(
