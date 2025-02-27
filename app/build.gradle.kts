@@ -67,10 +67,6 @@ android {
         ignoreList.add("keyToIgnore") // Ignore the key "keyToIgnore"
         ignoreList.add("sdk.*")       // Ignore all keys matching the regexp "sdk.*"
     }
-    kapt {
-        correctErrorTypes = true
-    }
-
 }
 
 dependencies {
@@ -110,6 +106,7 @@ dependencies {
 
     // Testing
     testImplementation(libs.junit)
+    testImplementation(libs.androidx.core.testing)
     androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+//    androidTestImplementation(libs.androidx.espresso.core)
 }

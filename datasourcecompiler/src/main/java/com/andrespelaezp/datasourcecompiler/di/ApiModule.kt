@@ -19,7 +19,7 @@ private const val GOOGLE_BASE_URL = "https://www.googleapis.com/"
 private const val OPEN_PROJECT_BASE_URL = "http://10.0.2.2:3000" // Localhost for Android Emulator
 //private const val OPEN_PROJECT_BASE_URL = "http://192.168.1.232:8080/" // Localhost for Home Network
 
-val networkModule = module {
+val apiModule = module {
     single<TokenProvider> {
         TokenProviderImpl()
     }
@@ -35,21 +35,21 @@ val networkModule = module {
                 .writeTimeout(25,TimeUnit.SECONDS)
         }.build()
     }
-    single<JiraService> {
-        Retrofit.Builder()
-            .baseUrl(JIRA_BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(get())
-            .build()
-            .create(JiraService::class.java)
-    }
-    single<GoogleTasksService> {
-        Retrofit.Builder()
-            .baseUrl(GOOGLE_BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(GoogleTasksService::class.java)
-    }
+//    single<JiraService> {
+//        Retrofit.Builder()
+//            .baseUrl(JIRA_BASE_URL)
+//            .addConverterFactory(GsonConverterFactory.create())
+//            .client(get())
+//            .build()
+//            .create(JiraService::class.java)
+//    }
+//    single<GoogleTasksService> {
+//        Retrofit.Builder()
+//            .baseUrl(GOOGLE_BASE_URL)
+//            .addConverterFactory(GsonConverterFactory.create())
+//            .build()
+//            .create(GoogleTasksService::class.java)
+//    }
     single<OpenProjectService> {
         val gson = GsonBuilder()
             .setLenient()
