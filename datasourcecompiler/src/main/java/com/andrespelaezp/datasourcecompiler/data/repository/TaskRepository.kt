@@ -28,10 +28,9 @@ class TaskRepository(
 //        val jiraTasks = fetchJiraTasks(jiraAuthToken)
 //        val googleTasks = fetchGoogleTasks(googleAuthToken, googleTaskListId)
 //        val openProjectTasks =
-        fetchOpenProjectTasks()
 
 //        jiraTasks + googleTasks +
-        return@withContext taskDao.getAllWorkPackages()
+        return@withContext fetchOpenProjectTasks()
     }
 
     // Sync unsynced data when the network is available
@@ -63,6 +62,7 @@ class TaskRepository(
         }
         response.body()?.let {
             val tasks = mapOpenProjectTask(it)
+            Log.d("fetchOpenProjectTasks", "Saving OpenProject tasks workPackage: ${tasks.size}")
             storeWorkPackages(tasks)
             return tasks
         }
@@ -78,6 +78,18 @@ class TaskRepository(
         } catch (e: Exception) {
             Log.e("WorkPackageRepo", "Error fetching work packages: ${e.message}")
         }
+    }
+
+    suspend fun getTodayTasks(): List<Task> {
+        return taskDao.getAllWorkPackages()
+    }
+
+    fun getThisWeekTasks(): List<Task> {
+        TODO("Not yet implemented")
+    }
+
+    fun getCompletionMarkers(): List<Task> {
+        TODO("Not yet implemented")
     }
 
 //    private suspend fun fetchJiraTasks(authToken: String): List<Task> {

@@ -18,19 +18,36 @@ class DashboardViewModel(
     val state = _state.asStateFlow()
 
     init {
+        updateTasks()
         loadDashboardData()
+    }
+
+    private fun updateTasks() {
+        viewModelScope.launch {
+            try {
+                taskRepository.fetchAllTasks(
+                    jiraAuthToken = apiKey,
+                    googleAuthToken = googleKey,
+                    googleTaskListId = googleTaskId,
+                )
+            } catch (e: Exception) {
+                _state.value = DashboardViewState(errorMessage = e.message)
+            }
+        }
     }
 
     private fun loadDashboardData() {
         viewModelScope.launch {
             _state.value = DashboardViewState(isLoading = true)
             try {
-                val items = taskRepository.fetchAllTasks(
-                    jiraAuthToken = apiKey,
-                    googleAuthToken = googleKey,
-                    googleTaskListId = googleTaskId,
+                val todayItems = taskRepository.getTodayTasks()
+                val thisWeekItems = taskRepository.getThisWeekTasks()
+                val completionMarkers = taskRepository.getCompletionMarkers()
+                _state.value = DashboardViewState(
+                    todayTasks = todayItems,
+                    thisWeekTasks = thisWeekItems,
+                    completionMarkers = emptyList()
                 )
-                _state.value = DashboardViewState(thisWeekTasks = items)
             } catch (e: Exception) {
                 _state.value = DashboardViewState(errorMessage = e.message)
             }
