@@ -103,10 +103,13 @@ dependencies {
     implementation(libs.koin.compose)
     implementation(libs.androidx.ui.test.android)
     implementation(libs.androidx.compose.material)
+    implementation(libs.androidx.graphics.shapes.android)
+//    implementation(libs.androidx.protolayout)
 
     // Testing
     testImplementation(libs.junit)
     testImplementation(libs.androidx.core.testing)
     androidTestImplementation(libs.androidx.junit)
+    debugImplementation(libs.ui.tooling)
 //    androidTestImplementation(libs.androidx.espresso.core)
 }

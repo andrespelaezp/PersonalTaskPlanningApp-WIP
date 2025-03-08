@@ -6,6 +6,7 @@ import com.andrespelaezp.datasourcecompiler.api.data.openproject.Description
 import com.andrespelaezp.datasourcecompiler.api.data.openproject.WorkPackage
 import com.andrespelaezp.datasourcecompiler.api.data.openproject.WorkPackagesListResponse
 import com.andrespelaezp.datasourcecompiler.data.SourceType
+import com.andrespelaezp.datasourcecompiler.data.Status
 import com.andrespelaezp.datasourcecompiler.data.Task
 
 
@@ -16,7 +17,7 @@ fun mapOpenProjectTask(openProjectTasks: WorkPackagesListResponse): List<Task> {
             title = workPackage.subject,
             summary = workPackage.description?.raw?: "",
             sourceType = SourceType.OPEN_PROJECT,
-            status = workPackage.status?: "",
+            status = statusMapper(workPackage.status?: ""),
             dueDate = workPackage.dueDate,
             createdAt = workPackage.createdAt,
             updatedAt = workPackage.updatedAt,
@@ -26,12 +27,24 @@ fun mapOpenProjectTask(openProjectTasks: WorkPackagesListResponse): List<Task> {
     }
 }
 
+fun statusMapper(value: String): Status {
+    return when (value.uppercase()) {
+        "NEW" -> Status.NEW
+        "TODO" -> Status.TODO
+        "BLOCKED" -> Status.BLOCKED
+        "IN PROGRESS" -> Status.IN_PROGRESS
+        "OVERDUE" -> Status.OVERDUE
+        "CLOSED" -> Status.CLOSED
+        else -> Status.NEW
+    }
+}
+
 fun Task.toOpenProjectWorkPackage(): WorkPackage {
     return WorkPackage(
         id = id.toInt(),
         subject = title,
         description = Description(raw = summary),
-        status = status,
+        status = status.name,
         dueDate = dueDate,
         createdAt = createdAt?: "",
         lockVersion = lockVersion?: 0,
@@ -46,7 +59,7 @@ fun mapJiraTask(jiraTasks: List<JiraTask>): List<Task> {
             title = issue.title,
             summary = issue.fields.summary,
             sourceType = SourceType.JIRA,
-            status = issue.fields.status.name,
+            status = Status.valueOf(issue.fields.status.name),
             dueDate = issue.dueDate
         )
     }
@@ -58,7 +71,7 @@ fun mapGoogleTask(googleTasks: List<GoogleTask>): List<Task> {
             id = task.id,
             title = task.title,
             sourceType = SourceType.GOOGLE,
-            status = task.status,
+            status = Status.valueOf(task.status),
             dueDate = task.due
         )
     }
