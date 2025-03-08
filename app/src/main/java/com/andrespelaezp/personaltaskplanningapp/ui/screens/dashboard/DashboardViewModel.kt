@@ -30,7 +30,7 @@ class DashboardViewModel(
                     googleAuthToken = googleKey,
                     googleTaskListId = googleTaskId,
                 )
-                _state.value = DashboardViewState(tasks = items)
+                _state.value = DashboardViewState(thisWeekTasks = items)
             } catch (e: Exception) {
                 _state.value = DashboardViewState(errorMessage = e.message)
             }

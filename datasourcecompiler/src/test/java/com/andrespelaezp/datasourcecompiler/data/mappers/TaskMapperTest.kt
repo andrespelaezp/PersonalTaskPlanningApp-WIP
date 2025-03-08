@@ -1,8 +1,10 @@
 package com.andrespelaezp.datasourcecompiler.data.mappers
 
+import com.andrespelaezp.datasourcecompiler.data.Status
 import com.andrespelaezp.datasourcecompiler.data.mocks.TaskMocks.openProjectTaskListMock
 import com.andrespelaezp.datasourcecompiler.data.mocks.TaskMocks.workPackagesListResponseMock
 import com.andrespelaezp.datasourcecompiler.data.repository.mapper.mapOpenProjectTask
+import com.andrespelaezp.datasourcecompiler.data.repository.mapper.statusMapper
 import org.junit.Test
 
 class TaskMapperTest {
@@ -24,4 +26,24 @@ class TaskMapperTest {
         assert(result[0].isSynced == expectedTask[0].isSynced)
     }
 
+    @Test
+    fun mappingStatus() {
+        val status = "NEW"
+        val result = statusMapper(status)
+        assert(result == Status.NEW)
+    }
+
+    @Test
+    fun mappingStatusEmpty() {
+        val status = ""
+        val result = statusMapper(status)
+        assert(result == Status.NEW)
+    }
+
+    @Test
+    fun mappingStatusLowercase() {
+        val status = "in progress"
+        val result = statusMapper(status)
+        assert(result == Status.IN_PROGRESS)
+    }
 }

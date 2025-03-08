@@ -10,7 +10,7 @@ data class Task(
     val title: String,
     val summary: String? = null,
     val sourceType: SourceType,
-    val status: String,
+    val status: Status,
     val dueDate: String? = null,
     val createdAt: String? = null,
     val updatedAt: String? = null,

@@ -5,6 +5,7 @@ import com.andrespelaezp.datasourcecompiler.api.data.openproject.EmbeddedWorkPac
 import com.andrespelaezp.datasourcecompiler.api.data.openproject.WorkPackage
 import com.andrespelaezp.datasourcecompiler.api.data.openproject.WorkPackagesListResponse
 import com.andrespelaezp.datasourcecompiler.data.SourceType
+import com.andrespelaezp.datasourcecompiler.data.Status
 import com.andrespelaezp.datasourcecompiler.data.Task
 
 object TaskMocks {
@@ -13,7 +14,7 @@ object TaskMocks {
         id = 1,
         subject = "Test Work Package 1",
         description = Description(raw = "Description 1"),
-        status = "Open",
+        status = "NEW",
         dueDate = "2021-12-31",
         createdAt = "2021-01-01",
         updatedAt = "2021-01-01",
@@ -43,7 +44,7 @@ object TaskMocks {
         title = "Test Work Package 1",
         summary = "Description 1",
         sourceType = SourceType.OPEN_PROJECT,
-        status = "Open",
+        status = Status.NEW,
         dueDate = "2021-12-31",
         createdAt = "2021-01-01",
         updatedAt = "2021-01-01",
@@ -56,7 +57,7 @@ object TaskMocks {
         title = "Test Work Package 2",
         summary = "Description 2",
         sourceType = SourceType.OPEN_PROJECT,
-        status = "Open",
+        status = Status.NEW,
         dueDate = "2021-12-31",
         createdAt = "2021-01-01",
         updatedAt = "2021-01-01",

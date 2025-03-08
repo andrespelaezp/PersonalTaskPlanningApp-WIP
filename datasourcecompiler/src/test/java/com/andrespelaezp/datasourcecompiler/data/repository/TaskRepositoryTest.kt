@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import com.andrespelaezp.datasourcecompiler.data.SourceType
+import com.andrespelaezp.datasourcecompiler.data.Status
 import com.andrespelaezp.datasourcecompiler.data.Task
 import com.andrespelaezp.datasourcecompiler.data.dao.TaskDao
 import com.andrespelaezp.datasourcecompiler.database.TaskDatabase
@@ -52,7 +53,7 @@ class TaskRepositoryTest {
 
     @Test
     fun `insert and retrieve work packages`() = runBlocking {
-        val workPackage = Task("1", "Test Work Package", "Test Description", SourceType.OPEN_PROJECT, "2024-02-26T12:00:00Z", "2024-02-26T12:00:00Z")
+        val workPackage = Task("1", "Test Work Package", "Test Description", SourceType.OPEN_PROJECT, Status.NEW, "2024-02-26T12:00:00Z")
 
         withContext(Dispatchers.IO) {
 
@@ -67,7 +68,7 @@ class TaskRepositoryTest {
 
     @Test
     fun `detect unsynced work packages`() = runBlocking {
-        val unsyncedPackage = Task("2", "Unsynced Package", null, SourceType.OPEN_PROJECT, "2024-02-26T12:00:00Z", "2024-02-26T12:00:00Z")
+        val unsyncedPackage = Task("2", "Unsynced Package", null, SourceType.OPEN_PROJECT, Status.NEW, "2024-02-26T12:00:00Z")
         withContext(Dispatchers.IO) {
             workPackageDao.insertAll(listOf(unsyncedPackage))
 
