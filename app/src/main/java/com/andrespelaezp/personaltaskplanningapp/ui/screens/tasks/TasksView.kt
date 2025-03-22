@@ -30,12 +30,3 @@ fun TodoListScreen(navController: NavHostController) {
         }
     }
 }
-
-@Composable
-fun TaskDetailScreen(task: String) {
-    Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
-        Text("Task Details", style = MaterialTheme.typography.headlineLarge)
-        Spacer(modifier = Modifier.height(8.dp))
-        Text(task, style = MaterialTheme.typography.bodyMedium)
-    }
-}
