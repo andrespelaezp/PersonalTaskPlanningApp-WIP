@@ -66,7 +66,7 @@ fun AppMainScreen(
                 NavigationDrawerItem(
                     label = { Text("Board view (TODO)") },
                     selected = false,
-                    onClick = { /* Handle click */ }
+                    onClick = { /* TODO Handle click */ }
                 )
                 NavigationDrawerItem(
                     label = { Text("Stats (TODO)") },
@@ -83,15 +83,15 @@ fun AppMainScreen(
                     label = { Text("Provider List (TODO)") },
                     selected = false,
                     icon = { Icon(Icons.AutoMirrored.Outlined.List, contentDescription = null) },
-                    onClick = { /* Handle click */ },
+                    onClick = { /* TODO Handle click */ },
                 )
                 Spacer(Modifier.height(12.dp))
                 NavigationDrawerItem(
                     label = { Text("Preferences (TODO)") },
                     selected = false,
                     icon = { Icon(Icons.Outlined.Settings, contentDescription = null) },
-                    badge = { Text("20") }, // Placeholder
-                    onClick = { /* Handle click */ }
+//                    badge = { Text("20") }, // Placeholder
+                    onClick = { /* TODO Handle click */ }
                 )
             }
         },
@@ -113,7 +113,15 @@ fun AppMainScreen(
                 startDestination = "dashboard",
                 modifier = Modifier.padding(contentPadding)
             ) {
-                composable("dashboard") { DashboardScreen(context = context, navController = navController) }
+                composable("dashboard") {
+                    DashboardScreen(
+                        context = context,
+                        navController = navController,
+                        navigateToTask = { taskId ->
+                            navController.navigate("detail/$taskId")
+                        }
+                    )
+                }
                 composable("tasks") { TasksView(navController = navController) }
                 composable("stats") {
                     //TODO: Stats screen

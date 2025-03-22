@@ -2,7 +2,6 @@ package com.andrespelaezp.personaltaskplanningapp.ui.screens.dashboard
 
 import android.content.Context
 import android.util.Log
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -53,16 +52,15 @@ import org.koin.compose.viewmodel.koinViewModel
 fun DashboardScreen(
     context: Context,
     viewModel: DashboardViewModel = koinViewModel<DashboardViewModel>(),
-    navController: NavHostController
+    navController: NavHostController,
+    navigateToTask: (String) -> Unit
 ) {
     val uiState = viewModel.state.collectAsStateWithLifecycle()
 
     DashboardScreenContent(
         uiState = uiState.value,
         context = context,
-        navigateToTask = { taskId ->
-            navController.navigate("detail/$taskId")
-        }
+        navigateToTask = navigateToTask
     )
 }
 
@@ -83,10 +81,12 @@ fun DashboardScreenContent(
                 trackColor = MaterialTheme.colorScheme.surfaceVariant,
             )
         }
-    } else if (uiState.errorMessage != null) {
-        Toast.makeText(context, uiState.errorMessage, Toast.LENGTH_SHORT).show()
     } else {
-        Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+        if (uiState.errorMessage != null) {
+            // TODO: Implement Logger
+            Log.e("DashboardScreenContent", "Error: ${uiState.errorMessage}")
+        }
+
         DashboardContent(
             uiState.todayTasks,
             emptyList(),

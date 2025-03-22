@@ -6,5 +6,6 @@ import androidx.navigation.NavHostController
 
 @Composable
 fun CreateTaskView(navController: NavHostController) {
+    /* TODO Create Task View */
     Text("Create Task View")
 }

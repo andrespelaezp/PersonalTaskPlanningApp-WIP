@@ -11,9 +11,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
-
 @Composable
 fun TaskDetailScreen(task: String) {
+    /* TODO Create Detail View */
     Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
         Text("Task Details", style = MaterialTheme.typography.headlineLarge)
         Spacer(modifier = Modifier.height(8.dp))
