@@ -1,6 +1,7 @@
 package com.andrespelaezp.personaltaskplanningapp.ui.screens.dashboard
 
 import android.content.Context
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -9,7 +10,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -59,14 +59,18 @@ fun DashboardScreen(
 
     DashboardScreenContent(
         uiState = uiState.value,
-        context = context
+        context = context,
+        navigateToTask = { taskId ->
+            navController.navigate("detail/$taskId")
+        }
     )
 }
 
 @Composable
 fun DashboardScreenContent(
     uiState: DashboardViewState,
-    context: Context
+    context: Context,
+    navigateToTask: (String) -> Unit
 ) {
     if (uiState.isLoading) {
         Box(
@@ -86,7 +90,8 @@ fun DashboardScreenContent(
         DashboardContent(
             uiState.todayTasks,
             emptyList(),
-            uiState.completionMarkers
+            uiState.completionMarkers,
+            navigateToTask
         )
     }
 }
@@ -95,14 +100,16 @@ fun DashboardScreenContent(
 fun DashboardContent(
     todayTasks: List<Task> = emptyList(),
     thisWeekTasks: List<Task> = emptyList(),
-    lastWeekCompletion: List<DashboardGridItem> = emptyList()
+    lastWeekCompletion: List<DashboardGridItem> = emptyList(),
+    onTaskClicked: (String) -> Unit
 ) {
     Column(modifier = Modifier.padding(5.dp)) {
         DashboardSectionTitle("Due Today")
-        DashboardTaskList(todayTasks)
+        DashboardTaskList(todayTasks, onTaskClicked)
+        Log.d("DashboardContent", "todayTasks: $todayTasks")
 
         DashboardSectionTitle("This Week's Tasks")
-        DashboardTaskList(thisWeekTasks)
+        DashboardTaskList(thisWeekTasks, onTaskClicked)
 
         DashboardSectionTitle("Last Week Completion")
         CompletionMetrics(
@@ -123,21 +130,29 @@ fun DashboardSectionTitle(title: String) {
 }
 
 @Composable
-fun DashboardTaskList(tasks: List<Task>) {
+fun DashboardTaskList(
+    tasks: List<Task>,
+    onTaskClicked: (String) -> Unit
+) {
     LazyColumn {
         items(tasks) { task ->
-            TaskItem(task)
+            TaskItem(task, onTaskClicked)
         }
     }
 }
 
 @Composable
-fun TaskItem(task: Task) {
+fun TaskItem(
+    task: Task,
+    onTaskClicked: (String) -> Unit
+) {
     Card(
         modifier = Modifier
             .padding(start = 8.dp, end = 8.dp, bottom = 8.dp)
             .fillMaxWidth()
-            .clickable { /* TODO: Open task details */ },
+            .clickable {
+                onTaskClicked(task.id)
+            },
         elevation = CardDefaults.cardElevation(
             defaultElevation = 2.dp
         ),
@@ -289,7 +304,8 @@ fun PreviewTaskDashboard() {
     DashboardContent(
         todayTasks = DashboardScreenMock.uiState.todayTasks,
         thisWeekTasks = DashboardScreenMock.uiState.thisWeekTasks,
-        lastWeekCompletion = DashboardScreenMock.uiState.completionMarkers
+        lastWeekCompletion = DashboardScreenMock.uiState.completionMarkers,
+        onTaskClicked = {}
     )
 }
 

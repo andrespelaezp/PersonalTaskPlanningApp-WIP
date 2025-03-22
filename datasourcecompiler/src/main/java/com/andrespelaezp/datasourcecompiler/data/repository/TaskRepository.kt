@@ -85,11 +85,13 @@ class TaskRepository(
     }
 
     fun getThisWeekTasks(): List<Task> {
-        TODO("Not yet implemented")
+//        TODO("Not yet implemented")
+        return emptyList<Task>()
     }
 
     fun getCompletionMarkers(): List<Task> {
-        TODO("Not yet implemented")
+//        TODO("Not yet implemented")
+        return emptyList<Task>()
     }
 
 //    private suspend fun fetchJiraTasks(authToken: String): List<Task> {

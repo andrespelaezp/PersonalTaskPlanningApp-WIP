@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
+import androidx.compose.material.icons.automirrored.outlined.List
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.outlined.Settings
@@ -33,6 +34,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.composable
 import com.andrespelaezp.personaltaskplanningapp.ui.screens.dashboard.DashboardScreen
+import com.andrespelaezp.personaltaskplanningapp.ui.screens.new_task.CreateTaskView
+import com.andrespelaezp.personaltaskplanningapp.ui.screens.task_detail.TaskDetailScreen
 import com.andrespelaezp.personaltaskplanningapp.ui.screens.tasks.TasksView
 import kotlinx.coroutines.CoroutineScope
 
@@ -49,38 +52,47 @@ fun AppMainScreen(
         drawerContent = {
             ModalDrawerSheet {
                 Spacer(Modifier.height(12.dp))
-                Text("Drawer Title", modifier = Modifier.padding(16.dp), style = MaterialTheme.typography.titleLarge)
+                Text("Main Menu", modifier = Modifier.padding(16.dp), style = MaterialTheme.typography.titleLarge)
                 HorizontalDivider()
 
-                Text("Section 1", modifier = Modifier.padding(16.dp), style = MaterialTheme.typography.titleMedium)
+                Text("Tasks", modifier = Modifier.padding(16.dp), style = MaterialTheme.typography.titleMedium)
                 NavigationDrawerItem(
-                    label = { Text("Item 1") },
+                    label = { Text("Dashboard - WIP") },
+                    selected = false,
+                    onClick = {
+                        navController.navigate("dashboard")
+                    }
+                )
+                NavigationDrawerItem(
+                    label = { Text("Board view (TODO)") },
                     selected = false,
                     onClick = { /* Handle click */ }
                 )
                 NavigationDrawerItem(
-                    label = { Text("Item 2") },
+                    label = { Text("Stats (TODO)") },
                     selected = false,
-                    onClick = { /* Handle click */ }
+                    onClick = {
+                        navController.navigate("stats")
+                    }
                 )
 
                 HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
 
-                Text("Section 2", modifier = Modifier.padding(16.dp), style = MaterialTheme.typography.titleMedium)
+                Text("Settings", modifier = Modifier.padding(16.dp), style = MaterialTheme.typography.titleMedium)
                 NavigationDrawerItem(
-                    label = { Text("Settings") },
+                    label = { Text("Provider List (TODO)") },
+                    selected = false,
+                    icon = { Icon(Icons.AutoMirrored.Outlined.List, contentDescription = null) },
+                    onClick = { /* Handle click */ },
+                )
+                Spacer(Modifier.height(12.dp))
+                NavigationDrawerItem(
+                    label = { Text("Preferences (TODO)") },
                     selected = false,
                     icon = { Icon(Icons.Outlined.Settings, contentDescription = null) },
                     badge = { Text("20") }, // Placeholder
                     onClick = { /* Handle click */ }
                 )
-                NavigationDrawerItem(
-                    label = { Text("Help and feedback") },
-                    selected = false,
-                    icon = { Icon(Icons.AutoMirrored.Outlined.ArrowBack, contentDescription = null) },
-                    onClick = { /* Handle click */ },
-                )
-                Spacer(Modifier.height(12.dp))
             }
         },
     ) {
@@ -88,28 +100,31 @@ fun AppMainScreen(
             topBar = { TopBar(scope, drawerState) },
             floatingActionButton = {
                 ExtendedFloatingActionButton(
-                    text = { Text("Show drawer") },
+                    text = { Text("New Task") },
                     icon = { Icon(Icons.Filled.Add, contentDescription = "") },
                     onClick = {
-                        scope.launch {
-                            drawerState.apply {
-                                if (isClosed) open() else close()
-                            }
-                        }
+                        navController.navigate("create_task")
                     }
                 )
             }
         ) { contentPadding ->
             // Screen content
             NavHost(navController,
-                //TODO: Leaving tasks as entrypoint for now, once the dashboard is implemented, it should be the entrypoint
-                startDestination = "main",
+                startDestination = "dashboard",
                 modifier = Modifier.padding(contentPadding)
             ) {
-                composable("main") { DashboardScreen(context = context, navController = navController) }
+                composable("dashboard") { DashboardScreen(context = context, navController = navController) }
                 composable("tasks") { TasksView(navController = navController) }
+                composable("stats") {
+                    //TODO: Stats screen
+                }
                 composable("detail/{task}") { backStackEntry ->
-//                    TaskDetailScreen(backStackEntry.arguments?.getString("task") ?: "Unknown")
+                    //TODO: Detail screen
+                    TaskDetailScreen(backStackEntry.arguments?.getString("task") ?: "Unknown")
+                }
+                composable("create_task") {
+                    //TODO: Create task screen
+                    CreateTaskView(navController = navController)
                 }
             }
         }
@@ -120,7 +135,7 @@ fun AppMainScreen(
 @Composable
 fun TopBar(scope: CoroutineScope, drawerState: DrawerState) {
     TopAppBar(
-        title = { Text("TODO App") },
+        title = { Text("Open Source TODO App") },
         navigationIcon = {
             IconButton(onClick = { scope.launch { drawerState.open() } }) {
                 Icon(Icons.Default.Menu, contentDescription = "Menu")
